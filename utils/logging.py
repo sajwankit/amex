@@ -44,6 +44,11 @@ LOGGING_CONFIG = {
             'level': os.environ["LOG_LEVEL"],
             'propagate': False
         },
+        'log_always': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': False
+        },
         'paramiko':{
             'level': "WARNING"
         }

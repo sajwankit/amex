@@ -3,10 +3,12 @@ sys.path.append("../..")
 sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir))
 
 # To debug in vscode and use env vars uncomment following.
-from dotenv import load_dotenv
-os.environ.clear()
-load_dotenv() # load current project dir
-load_dotenv(f"""{os.environ["PROJECT_DIR"]}/config/amex.env""")
+# # os.environ.clear()
+# from dotenv import load_dotenv
+# load_dotenv() # load current project dir
+# load_dotenv(f"""{os.environ["PROJECT_DIR"]}/config/amex.env""")
+# os.environ["LOG_FILENAME"]="train.log"
+# os.environ["LOG_LEVEL"]="INFO"
 
 import logging
 import logging.config
@@ -14,13 +16,14 @@ from utils.logging import LOGGING_CONFIG
 logging.config.dictConfig(LOGGING_CONFIG)
 logger = logging.getLogger(__name__)
 
-import gc, argparse, joblib
+import gc, argparse, joblib, time
 from sklearn.model_selection import KFold
 import xgboost
 import pandas as pd
 
+
+from data.dataloader import IterLoadForDMatrix
 from data.get_data import read_file, add_targets
-from dataloader import IterLoadForDMatrix
 from data.pipelines import AmexPreProcessPipeline
 from utils.metrics import amex_metric_mod
 from utils.callbacks import XGBLogging
@@ -81,6 +84,13 @@ def get_parser():
         required=False,
         default='1'
     )
+    # train epoch log interval
+    parser.add_argument(
+        "--epoch-log-interval",
+        type=int,
+        required=False,
+        default=200
+    )
     return parser
 
 class AmexTrainer:
@@ -102,7 +112,7 @@ class AmexTrainer:
         return transformed_df
     
     def train_and_predict(self, train_df, train_idx, valid_idx, model_save_path, predict=True):
-        if args.model == "xgb":
+        if "xgb" in args.model:
             features = train_df.columns[1:-1]
             Xy_train = IterLoadForDMatrix(
                 train_df.loc[train_idx],
@@ -137,8 +147,7 @@ class AmexTrainer:
                 num_boost_round=9999,
                 early_stopping_rounds=100,
                 verbose_eval=100,
-                evals_result=progress,
-                callbacks=[XGBLogging()]
+                callbacks=[XGBLogging(epoch_log_interval=args.epoch_log_interval)]
             ) 
             model.save_model(model_save_path)
             logger.info(f"xgboost model training done, model saved at: {model_save_path}")
@@ -185,15 +194,39 @@ class AmexTrainer:
                 train_df,
                 train_idx,
                 valid_idx,
-                model_save_path=f"""{os.environ["MODEL_DIR"]}xgboost_v{args.version}_fold{fold}.xgboost"""
+                model_save_path=f"""{os.environ["MODEL_DIR"]}{args.model}_v{args.version}_fold{fold}.{args.model}"""
             )
 
             # GET FEATURE IMPORTANCE FOR FOLD K
             dd = model.get_score(importance_type='weight')
             fold_feature_imp_df = pd.DataFrame({'feature':dd.keys(),f'importance_{fold}':dd.values()})
             self.feature_importances.append(fold_feature_imp_df)
-            
+    
+    def save_feature_importance(self):
+        df = self.feature_importances[0].copy()
+        for k in range(1,args.folds): df = df.merge(self.feature_importances[k], on='feature', how='left')
+        df['importance'] = df.iloc[:,1:].mean(axis=1)
+        df = df.sort_values('importance',ascending=False)
+        feature_importance_save_path = f"""{os.environ["DATA_BASE_DIR"]}{args.model}_feature_importance_v{args.version}.csv"""
+        df.to_csv(feature_importance_save_path, index=False)
+        logger.info(f"""Feature importance saved at {feature_importance_save_path}""")
+    
+    def save_oof(self, train_path):
+        oof = pd.concat(self.oofs,axis=0, ignore_index=True).set_index('customer_ID')
+        acc = amex_metric_mod(oof.target.values, oof.oof_pred.values)
+        logger.info(f"OVERALL CV Kaggle Metric = {acc}")
+        oof_ = pd.read_parquet(train_path, columns=["customer_ID"]).drop_duplicates()
+        oof_['customer_ID_hash'] = oof_['customer_ID'].apply(lambda x: int(x[-16:],16) ).astype('int64')
+        oof_ = oof_.set_index('customer_ID_hash')
+        oof_ = oof_.merge(oof, left_index=True, right_index=True)
+        oof_ = oof_.sort_index().reset_index(drop=True)
+        oof_save_path = f"""{os.environ["DATA_BASE_DIR"]}oof_{args.model}_v{args.version}.csv"""
+        oof_.to_csv(oof_save_path,index=False)
+        logger.info(f"""OOF saved at {oof_save_path}""")
+
 if __name__=="__main__":
+    job_start_time = time.time()
+
     # define args
     parser = get_parser()
     args = parser.parse_args()
@@ -202,10 +235,16 @@ if __name__=="__main__":
     train_path = f"""{os.environ["DATA_BASE_DIR"]}train.parquet"""
     train_df = read_file(path=train_path)
 
+    # define trainer
     trainer = AmexTrainer(model_type="xgb")
-    trainer.fold_train(train_df)
 
-    logger.info('#'*25)
-    oof = pd.concat(trainer.oofs,axis=0,ignore_index=True).set_index('customer_ID')
-    acc = amex_metric_mod(oof.target.values, oof.oof_pred.values)
-    logger.info(f"OVERALL CV Kaggle Metric = {acc}")
+    # train model for all folds
+    trainer.fold_train(train_df)
+    # save feature importance
+    trainer.save_feature_importance()
+    # save oof
+    trainer.save_oof(train_path)
+
+    logger.info(f"Train Job Completed. Time taken: {(time.time()-job_start_time)/60} minutes.")
+
+    

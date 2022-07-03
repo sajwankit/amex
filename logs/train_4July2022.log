@@ -1,0 +1,49 @@
+2022-07-03 19:44:20,215 [INFO] data.get_data: Train data shape: (5531451, 190)
+2022-07-03 19:44:21,114 [INFO] data.pipelines: shape after feature engineering: (458913, 918)
+2022-07-03 19:44:26,063 [INFO] __main__: #########################
+2022-07-03 19:44:26,064 [INFO] __main__: ### Fold 1
+2022-07-03 19:44:26,064 [INFO] __main__: ### Train size: 305942, Valid size: 152971
+2022-07-03 19:44:26,064 [INFO] __main__: ### Training with 100% fold data...
+2022-07-03 19:44:26,064 [INFO] __main__: #########################
+2022-07-03 19:44:33,509 [INFO] utils.callbacks: Epoch: 0, train: logloss: 0.662074816606592
+2022-07-03 19:44:33,509 [INFO] utils.callbacks: Epoch: 0, valid: logloss: 0.66199822223452
+2022-07-03 19:44:52,286 [INFO] utils.callbacks: Epoch: 500, train: logloss: 0.20764649751845743
+2022-07-03 19:44:52,286 [INFO] utils.callbacks: Epoch: 500, valid: logloss: 0.22020633587392693
+2022-07-03 19:45:09,712 [INFO] utils.callbacks: Epoch: 1000, train: logloss: 0.1943638071040521
+2022-07-03 19:45:09,713 [INFO] utils.callbacks: Epoch: 1000, valid: logloss: 0.21827976948992234
+2022-07-03 19:45:26,771 [INFO] utils.callbacks: Epoch: 1500, train: logloss: 0.18344683496437322
+2022-07-03 19:45:26,771 [INFO] utils.callbacks: Epoch: 1500, valid: logloss: 0.21784064478485446
+2022-07-03 19:45:29,413 [INFO] __main__: xgboost model training done, model saved at: /home/asajw/am/models/xgboost_v1_fold0.xgboost
+2022-07-03 19:45:29,814 [INFO] __main__: Kaggle Metric = 0.7906637668284636
+2022-07-03 19:45:29,903 [INFO] __main__: #########################
+2022-07-03 19:45:29,904 [INFO] __main__: ### Fold 2
+2022-07-03 19:45:29,904 [INFO] __main__: ### Train size: 305942, Valid size: 152971
+2022-07-03 19:45:29,904 [INFO] __main__: ### Training with 100% fold data...
+2022-07-03 19:45:29,904 [INFO] __main__: #########################
+2022-07-03 19:45:37,530 [INFO] utils.callbacks: Epoch: 0, train: logloss: 0.6620003799983692
+2022-07-03 19:45:37,530 [INFO] utils.callbacks: Epoch: 0, valid: logloss: 0.6621011704187569
+2022-07-03 19:45:57,190 [INFO] utils.callbacks: Epoch: 500, train: logloss: 0.20757046910787877
+2022-07-03 19:45:57,190 [INFO] utils.callbacks: Epoch: 500, valid: logloss: 0.22028322623001523
+2022-07-03 19:46:14,949 [INFO] utils.callbacks: Epoch: 1000, train: logloss: 0.19443684396581387
+2022-07-03 19:46:14,949 [INFO] utils.callbacks: Epoch: 1000, valid: logloss: 0.2183247201766296
+2022-07-03 19:46:32,406 [INFO] utils.callbacks: Epoch: 1500, train: logloss: 0.18366566216820004
+2022-07-03 19:46:32,407 [INFO] utils.callbacks: Epoch: 1500, valid: logloss: 0.21778870959063507
+2022-07-03 19:46:38,845 [INFO] __main__: xgboost model training done, model saved at: /home/asajw/am/models/xgboost_v1_fold1.xgboost
+2022-07-03 19:46:39,288 [INFO] __main__: Kaggle Metric = 0.7915396455649493
+2022-07-03 19:46:39,381 [INFO] __main__: #########################
+2022-07-03 19:46:39,381 [INFO] __main__: ### Fold 3
+2022-07-03 19:46:39,381 [INFO] __main__: ### Train size: 305942, Valid size: 152971
+2022-07-03 19:46:39,381 [INFO] __main__: ### Training with 100% fold data...
+2022-07-03 19:46:39,381 [INFO] __main__: #########################
+2022-07-03 19:46:46,578 [INFO] utils.callbacks: Epoch: 0, train: logloss: 0.6620579509544928
+2022-07-03 19:46:46,578 [INFO] utils.callbacks: Epoch: 0, valid: logloss: 0.6620928854557382
+2022-07-03 19:47:05,244 [INFO] utils.callbacks: Epoch: 500, train: logloss: 0.20727775425817668
+2022-07-03 19:47:05,244 [INFO] utils.callbacks: Epoch: 500, valid: logloss: 0.22067959188566327
+2022-07-03 19:47:22,549 [INFO] utils.callbacks: Epoch: 1000, train: logloss: 0.19371185063852592
+2022-07-03 19:47:22,549 [INFO] utils.callbacks: Epoch: 1000, valid: logloss: 0.21876195266884504
+2022-07-03 19:47:39,685 [INFO] __main__: xgboost model training done, model saved at: /home/asajw/am/models/xgboost_v1_fold2.xgboost
+2022-07-03 19:47:40,072 [INFO] __main__: Kaggle Metric = 0.7901820701322022
+2022-07-03 19:47:40,154 [INFO] __main__: Feature importance saved at /home/asajw/am/xgboost_feature_importance_v1.csv
+2022-07-03 19:47:40,310 [INFO] __main__: OVERALL CV Kaggle Metric = 0.7910366256265118
+2022-07-03 19:47:43,122 [INFO] __main__: OOF saved at /home/asajw/am/oof_xgboost_v1.csv
+2022-07-03 19:47:43,149 [INFO] __main__: Train Job Completed. Time taken: 3.4199573159217835 minutes.

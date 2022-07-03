@@ -31,5 +31,6 @@ We build and train an **XGBoost model** using customer data, this XGB model achi
 Our feature engineering is performed using **[RAPIDS](https://rapids.ai/ "RAPIDS")** on the GPU to create new features quickly.  
 
 #### TRAINING LOGS
-We use a centralised logging mechanism for whole project using **python logging module**. One of the xgboost model training for 3 folds of data can be found at:  
+We use a centralised logging mechanism for whole project using **python logging module**.  
+One of the logs for xgboost model training (3 Folds) can be found at:  
 **https://github.com/sajwankit/amex/logs/train_4July2022.log**

@@ -20,8 +20,9 @@ LOGGING_CONFIG = {
             'level': os.environ["LOG_LEVEL"],
             'formatter': 'standard',
             'class': 'logging.FileHandler',
-            'filename': os.environ["LOG_PATH"],
-            'mode': 'a',
+            'filename': f"""{os.environ["PROJECT_DIR"]}logs/{os.environ["LOG_FILENAME"]}""",
+            # 'mode': 'a',
+            'mode': 'w'
         },
         # 'critical_mail_handler': {
         #     'level': 'CRITICAL',
@@ -44,12 +45,12 @@ LOGGING_CONFIG = {
             'level': os.environ["LOG_LEVEL"],
             'propagate': False
         },
-        'log_always': {
+        'mustlog': {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
             'propagate': False
         },
-        'paramiko':{
+        'numba':{
             'level': "WARNING"
         }
     } 

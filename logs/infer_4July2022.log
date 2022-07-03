@@ -1,0 +1,25 @@
+2022-07-03 19:50:49,284 [INFO] data.get_data: Train data shape: (11363762, 2)
+2022-07-03 19:50:49,410 [INFO] __main__: We will process test data as 4 separate parts.
+2022-07-03 19:50:49,410 [INFO] __main__: There will be 231155 customers in each part (except the last part).
+2022-07-03 19:50:49,410 [INFO] __main__: Below are number of rows in each part:
+2022-07-03 19:50:49,675 [INFO] __main__: Reading test data...
+2022-07-03 19:50:52,015 [INFO] data.get_data: Train data shape: (11363762, 190)
+2022-07-03 19:50:52,022 [INFO] __main__: Test part 1 has shape: (2841209, 190)
+2022-07-03 19:50:52,557 [INFO] data.pipelines: shape after feature engineering: (231155, 918)
+2022-07-03 19:50:54,781 [INFO] __main__: Test preds generated for part: 1
+2022-07-03 19:50:54,837 [INFO] __main__: Reading test data...
+2022-07-03 19:50:57,126 [INFO] data.get_data: Train data shape: (11363762, 190)
+2022-07-03 19:50:57,133 [INFO] __main__: Test part 2 has shape: (2839857, 190)
+2022-07-03 19:50:57,661 [INFO] data.pipelines: shape after feature engineering: (231155, 918)
+2022-07-03 19:50:59,623 [INFO] __main__: Test preds generated for part: 2
+2022-07-03 19:50:59,673 [INFO] __main__: Reading test data...
+2022-07-03 19:51:01,979 [INFO] data.get_data: Train data shape: (11363762, 190)
+2022-07-03 19:51:01,987 [INFO] __main__: Test part 3 has shape: (2842105, 190)
+2022-07-03 19:51:02,518 [INFO] data.pipelines: shape after feature engineering: (231155, 918)
+2022-07-03 19:51:04,492 [INFO] __main__: Test preds generated for part: 3
+2022-07-03 19:51:04,543 [INFO] __main__: Reading test data...
+2022-07-03 19:51:06,847 [INFO] data.get_data: Train data shape: (11363762, 190)
+2022-07-03 19:51:06,855 [INFO] __main__: Test part 4 has shape: (2840591, 190)
+2022-07-03 19:51:07,389 [INFO] data.pipelines: shape after feature engineering: (231156, 918)
+2022-07-03 19:51:09,389 [INFO] __main__: Test preds generated for part: 4
+2022-07-03 19:51:09,440 [INFO] __main__: Infer job completed. Time Taken: 0.358992862701416 minutes.

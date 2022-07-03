@@ -1,12 +1,9 @@
 import os
 # import custom logger class.
 import logging
-# import logging.config
-# from utils.logging import LOGGING_CONFIG
-# # set required logging configurations, using set_logger function, this creates the required logger object.
-# logging.config.dictConfig(LOGGING_CONFIG)
-# # defined logger for current script.
 logger = logging.getLogger(__name__)
+
+import cudf
 
 def read_file(path = '', usecols = None):
     # LOAD DATAFRAME
@@ -19,13 +16,13 @@ def read_file(path = '', usecols = None):
     #df = df.sort_values(['customer_ID','S_2'])
     #df = df.reset_index(drop=True)
     # FILL NAN
-    df = df.fillna(os.environ["FILL_NAN_VALUE"]) 
-    logger.info('shape of data:', df.shape)
+    df = df.fillna(int(os.environ["FILL_NAN_VALUE"])) 
+    logger.info(f"Train data shape: {df.shape}")
     return df
 
 def add_targets(train):
     # ADD TARGETS
-    targets = cudf.read_csv(f"{os.environ['ORIGINAL_INPUT_DATA']}train_labels.csv")
+    targets = cudf.read_csv(f"{os.environ['DATA_BASE_DIR']}train_labels.csv")
     targets['customer_ID'] = targets['customer_ID'].str[-16:].str.hex_to_int().astype('int64')
     targets = targets.set_index('customer_ID')
     train = train.merge(targets, left_index=True, right_index=True, how='left')
@@ -36,6 +33,3 @@ def add_targets(train):
     train = train.sort_index().reset_index()
 
     return train
-
-# TRAIN_PATH = f"{os.environ["COMPRESSED_INPUT_DATA"]}train.parquet"
-# train = read_file(path=TRAIN_PATH)

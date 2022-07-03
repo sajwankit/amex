@@ -64,4 +64,4 @@ python $HOME/amex/scripts/infer.py \
 > We use a centralised logging mechanism for whole project using **python logging module**.  
  
 One of the logs for xgboost model training (3 Folds) can be found at:  
-**https://github.com/sajwankit/amex/logs/train_4July2022.log**
+**https://github.com/sajwankit/amex/blob/main/logs/train_4July2022.log**

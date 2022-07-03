@@ -24,5 +24,8 @@ with the following features being categorical:
 > **The task is to predict, for each customer_ID, the probability of a future payment default (target = 1).**  
  
 #### APPROACH
-We build and train an **XGBoost model** using customer data, this XGB model achieves CV score of 0.792.  
-When training with XGB, we use a special XGB dataloader called DeviceQuantileDMatrix which uses a small GPU memory footprint. This allows us to engineer more additional columns and train with more rows of data. Our feature engineering is performed using RAPIDS on the GPU to create new features quickly.
+We build and train an **XGBoost model** using customer data, this XGB model achieves CV score of 0.792.
+
+> When training with XGB, we use a special XGB dataloader called **[DeviceQuantileDMatrix](https://xgboost.readthedocs.io/en/latest/python/examples/quantile_data_iterator.html "DeviceQuantileDMatrix")** which uses a small GPU memory footprint. This allows us to engineer more additional columns and train with more rows of data.
+
+Our feature engineering is performed using **[RAPIDS](https://rapids.ai/ "RAPIDS")** on the GPU to create new features quickly.  

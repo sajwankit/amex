@@ -23,9 +23,13 @@ with the following features being categorical:
   
 > **The task is to predict, for each customer_ID, the probability of a future payment default (target = 1).**  
  
-#### APPROACH
+#### APPROACH (WIP)
 We build and train an **XGBoost model** using customer data, this XGB model achieves CV score of 0.792.
 
 > When training with XGB, we use a special XGB dataloader called **[DeviceQuantileDMatrix](https://xgboost.readthedocs.io/en/latest/python/examples/quantile_data_iterator.html "DeviceQuantileDMatrix")** which uses a small GPU memory footprint. This allows us to engineer more additional columns and train with more rows of data.
 
 Our feature engineering is performed using **[RAPIDS](https://rapids.ai/ "RAPIDS")** on the GPU to create new features quickly.  
+
+#### TRAINING LOGS
+We use a centralised logging mechanism for whole project using **python logging module**. One of the xgboost model training for 3 folds of data can be found at:  
+**https://github.com/sajwankit/amex/logs/train_4July2022.log**

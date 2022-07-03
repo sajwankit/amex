@@ -1,13 +1,15 @@
 # American Express - Default Prediction 
-#### Predict if a customer will default in the future
+### #### Predict if a customer will default in the future
 
-**Overview:**
+**OVERVIEW**
 https://www.kaggle.com/competitions/amex-default-prediction
-
-**Objective:**
-> The objective is to predict the probability that a customer does not pay back their credit card balance amount in the future based on their monthly customer profile.
-
-**Data:**  
+  
+  
+**OBJECTIVE**
+> The objective is to predict the probability that a customer does not pay back their credit card balance amount in the future based on their monthly customer profile.  
+  
+  
+**DATA**  
 The dataset contains aggregated profile features for each customer at each statement date. Features are anonymized and normalized, and fall into the following general categories:  
   
 D_* = Delinquency variables  
@@ -19,7 +21,7 @@ with the following features being categorical:
   
 ['B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_63', 'D_64', 'D_66', 'D_68']  
   
-**Our task is to predict, for each customer_ID, the probability of a future payment default (target = 1).**  
+> **The task is to predict, for each customer_ID, the probability of a future payment default (target = 1).**  
   
 Files
 - train_data.csv - training data with multiple statement dates per customer_ID

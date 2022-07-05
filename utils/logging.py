@@ -24,15 +24,6 @@ LOGGING_CONFIG = {
             # 'mode': 'a',
             'mode': 'w'
         },
-        # 'critical_mail_handler': {
-        #     'level': 'CRITICAL',
-        #     'formatter': 'error',
-        #     'class': 'logging.handlers.SMTPHandler',
-        #     'mailhost' : 'localhost',
-        #     'fromaddr': 'monitoring@domain.com',
-        #     'toaddrs': ['dev@domain.com', 'qa@domain.com'],
-        #     'subject': 'Critical error with application name'
-        # }
     },
     'loggers': { 
         '': { 
